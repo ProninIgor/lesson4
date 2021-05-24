@@ -62,16 +62,14 @@ Time for 200 thread: 1238
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
 
         for (int i = 0; i < parts.length - 1; i++) {
-            Integer finalI = i;
+            Integer index = i;
 
-            var ref = new Object() {
-                Integer start = parts[finalI]; // почему не могу писать parts[i]?
-                Integer finish = parts[finalI + 1];
-            };
+            Integer start = parts[index]; // почему не могу писать parts[i]?
+            Integer finish = parts[index + 1];
 
             executorService.execute(
                     () -> {
-                        for (int j = ref.start; j <= ref.finish; j++)
+                        for (int j = start; j <= finish; j++)
                             arr[j] = (float) (arr[j] * Math.sin(0.2f + j / 5) * Math.cos(0.2f + j / 5) * Math.cos(0.4f + j / 2));
                     });
 
